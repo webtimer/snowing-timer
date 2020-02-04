@@ -1,21 +1,21 @@
-import P5 from 'p5'
+import * as P5 from 'p5'
 import Snowflake from './snowflake'
 
-let sketch = function(p) {
+let sketch = function (p: any) {
   // 雪片を保持する配列
-  let snowflakes = []
-  let piledSnowflakes = []
+  let snowflakes: Snowflake[] = []
+  let piledSnowflakes: Snowflake[] = []
 
   let piledSpeed = 0.05
   let piledHeight = -300 * piledSpeed
 
-  p.setup = function() {
+  p.setup = function () {
     p.createCanvas(400, 600)
     p.fill(240)
     p.noStroke()
   }
 
-  p.draw = function() {
+  p.draw = function () {
     p.background('brown')
     let t = p.frameCount / 60 // update time
 

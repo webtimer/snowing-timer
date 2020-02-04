@@ -2,7 +2,15 @@
  * 雪片
  */
 export default class Snowflake {
-  constructor(p) {
+
+  private p: any
+  private posX: number
+  private posY: number
+  private initialangle: number
+  private size: number
+  private radius: number
+
+  constructor(p: any) {
     this.p = p
     this.posX = 0
     this.posY = p.random(-50, 0)
@@ -13,7 +21,7 @@ export default class Snowflake {
     this.radius = p.sqrt(p.random(p.pow(p.width / 2, 2)))
   }
 
-  updatePosition(time, snowflakes, piledSnowflakes, piledHeight) {
+  updatePosition(time: number, snowflakes: Snowflake[], piledSnowflakes: Snowflake[], piledHeight: number) {
     // x position follows a circle
     let w = 0.6 // angular speed
     let angle = w * time + this.initialangle
@@ -36,7 +44,7 @@ export default class Snowflake {
   /**
    * 積もった雪の下に埋め込まれた雪片を削除します。
    */
-  deleteBuriedSnowflakes(piledSnowflakes, piledHeight) {
+  deleteBuriedSnowflakes(piledSnowflakes: Snowflake[], piledHeight: number) {
     if (this.posY > this.p.height - piledHeight + 5) {
       let index = piledSnowflakes.indexOf(this)
       piledSnowflakes.splice(index, 1)
