@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: '雪が積もるタイマー'
+      template: 'src/index.html'
     })
   ]
 }
