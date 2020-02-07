@@ -10,7 +10,7 @@ let sketch = function (p: any) {
   let piledHeight = -300 * piledSpeed
 
   p.setup = function () {
-    p.createCanvas(400, 600)
+    p.createCanvas(p.windowWidth, p.windowHeight)
     p.fill(240)
     p.noStroke()
   }
