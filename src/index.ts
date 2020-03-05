@@ -1,17 +1,21 @@
 import * as P5 from 'p5'
 import Snowflake from './snowflake'
 
+const PILED_SPEED = 0.05
+const INITIAL_PILED_HEIGHT = -300
+const BACKGROUND_COLOR = 240
+const NEW_SNOWFLAKE_COUNT_PER_FRAME = 5
+
 let sketch = function (p: any) {
   // 雪片を保持する配列
   let snowflakes: Snowflake[] = []
   let piledSnowflakes: Snowflake[] = []
 
-  let piledSpeed = 0.05
-  let piledHeight = -300 * piledSpeed
+  let piledHeight = INITIAL_PILED_HEIGHT * PILED_SPEED
 
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight)
-    p.fill(240)
+    p.fill(BACKGROUND_COLOR)
     p.noStroke()
   }
 
@@ -20,7 +24,7 @@ let sketch = function (p: any) {
     let t = p.frameCount / 60 // update time
 
     // フレームごとにランダムな数の雪片を生成して追加
-    for (var i = 0; i < p.random(5); i++) {
+    for (var i = 0; i < p.random(NEW_SNOWFLAKE_COUNT_PER_FRAME); i++) {
       snowflakes.push(new Snowflake(p))
     }
 
@@ -31,7 +35,7 @@ let sketch = function (p: any) {
     }
 
     // 長方形で積もった雪を描画
-    piledHeight += piledSpeed
+    piledHeight += PILED_SPEED
     p.fill('white')
     p.rect(0, p.height - piledHeight, p.width, piledHeight)
     // 積もった雪を描画
