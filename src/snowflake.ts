@@ -30,9 +30,21 @@ export default class Snowflake {
     this.posY += this.p.pow(this.size, 0.5)
   }
 
+  display() {
+    this.p.ellipse(this.posX, this.posY, this.size)
+  }
+
+  isOnTheSurfaceOfPiledSnow(piledHeight: number) {
+    return this.posY > this.p.height - piledHeight
+  }
+
+  isUnderSurfaceOfPiledSnow(piledHeight: number) {
+    return this.posY > this.p.height - piledHeight + 5
+  }
+
   removeIfUnnecessaryWithLeavingOnSurface(snowflakes: Snowflake[], piledSnowflakes: Snowflake[], piledHeight: number) {
     // delete snowflake if past end of piled snow line
-    if (this.posY > this.p.height - piledHeight) {
+    if (this.isOnTheSurfaceOfPiledSnow(piledHeight)) {
       // add piledSnowflake instead of deleting snowflake
       piledSnowflakes.push(this)
       let index = snowflakes.indexOf(this)
@@ -40,15 +52,11 @@ export default class Snowflake {
     }
   }
 
-  display() {
-    this.p.ellipse(this.posX, this.posY, this.size)
-  }
-
   /**
    * 積もった雪の下に埋め込まれた雪片を削除します。
    */
   deleteIfUnderPiledSnow(piledSnowflakes: Snowflake[], piledHeight: number) {
-    if (this.posY > this.p.height - piledHeight + 5) {
+    if (this.isUnderSurfaceOfPiledSnow(piledHeight)) {
       let index = piledSnowflakes.indexOf(this)
       piledSnowflakes.splice(index, 1)
     }
