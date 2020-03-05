@@ -68,8 +68,15 @@ let sketch = function (p: any) {
 
   let removeSnowflakesUnderPiledSnow = function () {
     for (let piledFlake of piledSnowflakes) {
-      piledFlake.deleteIfUnderPiledSnow(piledSnowflakes, piledHeight)
+      deleteIfUnderPiledSnow(piledFlake)
       piledFlake.display()
+    }
+  }
+
+  let deleteIfUnderPiledSnow = function (piledFlake: Snowflake) {
+    if (piledFlake.isUnderSurfaceOfPiledSnow(piledHeight)) {
+      let index = piledSnowflakes.indexOf(this)
+      piledSnowflakes.splice(index, 1)
     }
   }
 

@@ -52,13 +52,4 @@ export default class Snowflake {
     }
   }
 
-  /**
-   * 積もった雪の下に埋め込まれた雪片を削除します。
-   */
-  deleteIfUnderPiledSnow(piledSnowflakes: Snowflake[], piledHeight: number) {
-    if (this.isUnderSurfaceOfPiledSnow(piledHeight)) {
-      let index = piledSnowflakes.indexOf(this)
-      piledSnowflakes.splice(index, 1)
-    }
-  }
 }
