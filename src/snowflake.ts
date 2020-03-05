@@ -21,13 +21,16 @@ export default class Snowflake {
     this.radius = p.sqrt(p.random(p.pow(p.width / 2, 2)))
   }
 
-  updatePosition(time: number, snowflakes: Snowflake[], piledSnowflakes: Snowflake[], piledHeight: number) {
+  updatePosition(time: number) {
     // x position follows a circle
     let w = 0.6 // angular speed
     let angle = w * time + this.initialangle
     this.posX = this.p.width / 2 + this.radius * this.p.sin(angle)
     // different size snowflakes fall at slightly different y speeds
     this.posY += this.p.pow(this.size, 0.5)
+  }
+
+  removeIfUnnecessaryWithLeavingOnSurface(snowflakes: Snowflake[], piledSnowflakes: Snowflake[], piledHeight: number) {
     // delete snowflake if past end of piled snow line
     if (this.posY > this.p.height - piledHeight) {
       // add piledSnowflake instead of deleting snowflake
@@ -44,7 +47,7 @@ export default class Snowflake {
   /**
    * 積もった雪の下に埋め込まれた雪片を削除します。
    */
-  deleteBuriedSnowflakes(piledSnowflakes: Snowflake[], piledHeight: number) {
+  deleteIfUnderPiledSnow(piledSnowflakes: Snowflake[], piledHeight: number) {
     if (this.posY > this.p.height - piledHeight + 5) {
       let index = piledSnowflakes.indexOf(this)
       piledSnowflakes.splice(index, 1)
